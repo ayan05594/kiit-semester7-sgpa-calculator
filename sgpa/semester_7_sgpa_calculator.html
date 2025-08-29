@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Semester VII SGPA Calculator</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('bg.jpeg') no-repeat center center fixed;
+      background-size: cover;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 2.5rem;
+      border-radius: 20px;
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+      width: 90%;
+      max-width: 800px;
+      text-align: center;
+      border: 2px solid #008080;
+      backdrop-filter: blur(10px);
+      animation: slideIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(-30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .university-heading {
+      color: #004d40;
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      letter-spacing: 1px;
+    }
+
+    .subheading {
+      color: #006064;
+      font-size: 1.3rem;
+      margin-bottom: 2rem;
+      font-weight: 500;
+    }
+
+    h1 {
+      color: #2c3e50;
+      margin-bottom: 2rem;
+      font-size: 1.8rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+      text-align: left;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px 20px;
+      margin-bottom: 1rem;
+      border: 2px solid #8fd3f4;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .form-group input:focus {
+      border-color: #84fab0;
+      box-shadow: 0 0 8px rgba(143, 211, 244, 0.3);
+    }
+
+    .subjects-section {
+      margin-bottom: 2rem;
+    }
+
+    .section-title {
+      color: #2c3e50;
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      text-align: left;
+      border-bottom: 2px solid #008080;
+      padding-bottom: 0.5rem;
+    }
+
+    .subject-input {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.2rem;
+      padding: 0.5rem;
+      background: rgba(240, 248, 255, 0.5);
+      border-radius: 8px;
+    }
+
+    .subject-input label {
+      font-size: 1rem;
+      color: #34495e;
+      flex: 1;
+      text-align: left;
+      font-weight: 500;
+    }
+
+    .credit-info {
+      font-size: 0.9rem;
+      color: #666;
+      min-width: 80px;
+      text-align: center;
+    }
+
+    .subject-input select {
+      padding: 10px 15px;
+      border-radius: 8px;
+      border: 2px solid #8fd3f4;
+      font-size: 1rem;
+      background: white;
+      transition: all 0.3s ease;
+      width: 120px;
+    }
+
+    .subject-input select:focus {
+      border-color: #84fab0;
+      box-shadow: 0 0 8px rgba(143, 211, 244, 0.3);
+    }
+
+    .optional-subject {
+      opacity: 0.8;
+      border-left: 4px solid #f39c12;
+    }
+
+    .button-group {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2rem;
+    }
+
+    button {
+      padding: 14px 30px;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: linear-gradient(135deg, #008080, #006064);
+      color: white;
+      letter-spacing: 0.5px;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 128, 128, 0.3);
+    }
+
+    .result {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background: #e8f4f8;
+      border-radius: 10px;
+      font-size: 1.4rem;
+      color: #004d40;
+      animation: fadeInUp 0.5s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .footer {
+      margin-top: 2.5rem;
+      font-size: 0.9rem;
+      color: #7f8c8d;
+    }
+
+    .footer a {
+      color: #008080;
+      transition: color 0.3s ease;
+    }
+
+    .footer a:hover {
+      color: #006064;
+    }
+
+    .error {
+      color: #e74c3c;
+      font-size: 0.9rem;
+      margin-top: -0.5rem;
+      margin-bottom: 1rem;
+      text-align: left;
+    }
+
+    .export-btn {
+      background: linear-gradient(135deg, #27ae60, #219a52);
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .total-credits {
+      background: #f8f9fa;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="university-heading">KIIT UNIVERSITY</div>
+    <div class="subheading">SEMESTER VII (B. Tech. Hons.) SGPA CALCULATOR</div>
+    <h1>Calculate Your SGPA</h1>
+    <button class="export-btn" onclick="exportRecords()">Export Records</button>
+    
+    <form id="sgpa-form">
+      <div class="form-group">
+        <input type="text" id="name" name="name" placeholder="Enter Your Name" required>
+        <input type="email" id="email" name="email" placeholder="Enter Your Email (must end with @kiit.ac.in)" required>
+        <div id="email-error" class="error"></div>
+      </div>
+      
+      <!-- Theory Subjects -->
+      <div class="subjects-section">
+        <div class="section-title">Theory Subjects</div>
+        
+        <div class="subject-input">
+          <label for="PE4">Professional Elective-IV</label>
+          <div class="credit-info">3 Credits</div>
+          <select id="PE4" name="PE4">
+            <option value="O">O (10)</option>
+            <option value="E">E (9)</option>
+            <option value="A">A (8)</option>
+            <option value="B">B (7)</option>
+            <option value="C">C (6)</option>
+            <option value="D">D (5)</option>
+          </select>
+        </div>
+        
+        <div class="subject-input">
+          <label for="EPP">Engineering Professional Practice (EX40003)</label>
+          <div class="credit-info">2 Credits</div>
+          <select id="EPP" name="EPP">
+            <option value="O">O (10)</option>
+            <option value="E">E (9)</option>
+            <option value="A">A (8)</option>
+            <option value="B">B (7)</option>
+            <option value="C">C (6)</option>
+            <option value="D">D (5)</option>
+          </select>
+        </div>
+        
+        <div class="subject-input">
+          <label for="OE3">Open Elective-III / MI-II</label>
+          <div class="credit-info">3 Credits</div>
+          <select id="OE3" name="OE3">
+            <option value="O">O (10)</option>
+            <option value="E">E (9)</option>
+            <option value="A">A (8)</option>
+            <option value="B">B (7)</option>
+            <option value="C">C (6)</option>
+            <option value="D">D (5)</option>
+          </select>
+        </div>
+        
+        <div class="subject-input optional-subject">
+          <label for="MIN3">Minor-III (Optional)</label>
+          <div class="credit-info">3 Credits</div>
+          <select id="MIN3" name="MIN3">
+            <option value="">Not Taken</option>
+            <option value="O">O (10)</option>
+            <option value="E">E (9)</option>
+            <option value="A">A (8)</option>
+            <option value="B">B (7)</option>
+            <option value="C">C (6)</option>
+            <option value="D">D (5)</option>
+          </select>
+        </div>
+        
+        <div class="subject-input optional-subject">
+          <label for="MIN4">Minor-IV (Optional)</label>
+          <div class="credit-info">3 Credits</div>
+          <select id="MIN4" name="MIN4">
+            <option value="">Not Taken</option>
+            <option value="O">O (10)</option>
+            <option value="E">E (9)</option>
+            <option value="A">A (8)</option>
+            <option value="B">B (7)</option>
+            <option value="C">C (6)</option>
+            <option value="D">D (5)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Sessional Subjects -->
+      <div class="subjects-section">
+        <div class="section-title">Sessional Subjects</div>
+        
+        <div class="subject-input">
+          <label for="PROJ1">Project-I (CS47001)</label>
+          <div class="credit-info">5 Credits</div>
+          <select id="PROJ1" name="PROJ1">
+            <option value="O">O (10)</option>
+            <option value="E">E (9)</option>
+            <option value="A">A (8)</option>
+            <option value="B">B (7)</option>
+            <option value="C">C (6)</option>
+            <option value="D">D (5)</option>
+          </select>
+        </div>
+        
+        <div class="subject-input">
+          <label for="INTERN">Internship (CS48001)</label>
+          <div class="credit-info">2 Credits</div>
+          <select id="INTERN" name="INTERN">
+            <option value="O">O (10)</option>
+            <option value="E">E (9)</option>
+            <option value="A">A (8)</option>
+            <option value="B">B (7)</option>
+            <option value="C">C (6)</option>
+            <option value="D">D (5)</option>
+          </select>
+        </div>
+        
+        <div class="subject-input">
+          <label for="MILAB">MI- (Computing Laboratory) (CS39008)</label>
+          <div class="credit-info">2 Credits</div>
+          <select id="MILAB" name="MILAB">
+            <option value="O">O (10)</option>
+            <option value="E">E (9)</option>
+            <option value="A">A (8)</option>
+            <option value="B">B (7)</option>
+            <option value="C">C (6)</option>
+            <option value="D">D (5)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="total-credits" id="total-credits">
+        Total Credits: 15 (without optional subjects)
+      </div>
+
+      <div class="button-group">
+        <button type="button" onclick="calculateSGPA()">Calculate SGPA</button>
+      </div>
+    </form>
+
+    <div id="result" class="result"></div>
+
+    <div class="footer">
+      <p>© <a href="mailto:ayan05594@gmail.com">Ayan</a></p>
+      <p>Follow me on Instagram <a href="https://www.instagram.com/ahhyhonn/">@ahhyhonn</a></p>
+    </div>
+  </div>
+
+  <script>
+    async function calculateSGPA() {
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const emailError = document.getElementById('email-error');
+
+      if (!name || !email) {
+        alert('Please fill in both Name and Email fields.');
+        return;
+      }
+
+      if (!email.endsWith('@kiit.ac.in')) {
+        emailError.textContent = 'Email must end with @kiit.ac.in';
+        return;
+      } else {
+        emailError.textContent = '';
+      }
+
+      const gradePoints = { 'O': 10, 'E': 9, 'A': 8, 'B': 7, 'C': 6, 'D': 5 };
+      const credits = { 
+        PE4: 3,      // Professional Elective-IV
+        EPP: 2,      // Engineering Professional Practice
+        OE3: 3,      // Open Elective-III / MI-II
+        MIN3: 3,     // Minor-III (Optional)
+        MIN4: 3,     // Minor-IV (Optional)
+        PROJ1: 5,    // Project-I
+        INTERN: 2,   // Internship
+        MILAB: 2     // MI- (Computing Laboratory)
+      };
+      
+      const subjects = ['PE4', 'EPP', 'OE3', 'MIN3', 'MIN4', 'PROJ1', 'INTERN', 'MILAB'];
+      let totalGradePoints = 0;
+      let totalCredits = 0;
+      let takenSubjects = [];
+
+      for (let subject of subjects) {
+        const grade = document.getElementById(subject).value;
+        if (grade && grade !== '') {  // Only count subjects that have grades
+          const credit = credits[subject];
+          totalGradePoints += gradePoints[grade] * credit;
+          totalCredits += credit;
+          takenSubjects.push({
+            name: getSubjectName(subject),
+            grade: grade,
+            credits: credit,
+            points: gradePoints[grade] * credit
+          });
+        }
+      }
+
+      if (totalCredits === 0) {
+        alert('Please select grades for at least one subject.');
+        return;
+      }
+
+      const sgpa = totalGradePoints / totalCredits;
+      
+      // Create detailed result display
+      let resultHTML = `<h3>SGPA Calculation Result</h3>`;
+      resultHTML += `<div style="text-align: left; margin-bottom: 1rem;">`;
+      resultHTML += `<strong>Subjects Taken:</strong><br>`;
+      
+      takenSubjects.forEach(subject => {
+        resultHTML += `${subject.name}: ${subject.grade} (${subject.credits} credits) = ${subject.points} points<br>`;
+      });
+      
+      resultHTML += `</div>`;
+      resultHTML += `<div style="background: #d4edda; padding: 1rem; border-radius: 8px; margin-top: 1rem;">`;
+      resultHTML += `<strong>Total Credits: ${totalCredits}</strong><br>`;
+      resultHTML += `<strong>Total Grade Points: ${totalGradePoints}</strong><br>`;
+      resultHTML += `<strong style="font-size: 1.2em; color: #155724;">Your SGPA: ${sgpa.toFixed(2)}</strong>`;
+      resultHTML += `</div>`;
+      
+      document.getElementById('result').innerHTML = resultHTML;
+
+      // Update total credits display
+      document.getElementById('total-credits').textContent = `Total Credits: ${totalCredits}`;
+
+      // Create record object
+      const record = {
+        name: name,
+        email: email,
+        sgpa: sgpa.toFixed(2),
+        totalCredits: totalCredits,
+        subjects: takenSubjects,
+        timestamp: new Date().toLocaleString()
+      };
+
+      // Send record to the backend (if available)
+      try {
+        const response = await fetch('http://localhost:3000/save-record', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(record),
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to save record on the server.');
+        }
+
+        const data = await response.json();
+        console.log(data.message);
+      } catch (error) {
+        console.error('Error:', error);
+        // Don't show alert for server connection issues, just log
+        console.log('Record saved locally only - server not available');
+      }
+    }
+
+    function getSubjectName(code) {
+      const names = {
+        PE4: 'Professional Elective-IV',
+        EPP: 'Engineering Professional Practice',
+        OE3: 'Open Elective-III / MI-II',
+        MIN3: 'Minor-III',
+        MIN4: 'Minor-IV',
+        PROJ1: 'Project-I',
+        INTERN: 'Internship',
+        MILAB: 'MI- (Computing Laboratory)'
+      };
+      return names[code] || code;
+    }
+
+    async function exportRecords() {
+      try {
+        const response = await fetch('http://localhost:3000/get-records');
+        if (!response.ok) {
+          throw new Error('Failed to fetch records from the server.');
+        }
+
+        const records = await response.json();
+        if (records.length === 0) {
+          alert('No records found to export.');
+          return;
+        }
+
+        const textData = records.map((record, index) => {
+          let recordText = `Record ${index + 1}:\n`;
+          recordText += `Name: ${record.name}\n`;
+          recordText += `Email: ${record.email}\n`;
+          recordText += `SGPA: ${record.sgpa}\n`;
+          recordText += `Total Credits: ${record.totalCredits}\n`;
+          recordText += `Date: ${record.timestamp}\n`;
+          
+          if (record.subjects && record.subjects.length > 0) {
+            recordText += `Subjects:\n`;
+            record.subjects.forEach(subject => {
+              recordText += `  - ${subject.name}: ${subject.grade} (${subject.credits} credits)\n`;
+            });
+          }
+          
+          recordText += '\n';
+          return recordText;
+        }).join('');
+
+        const blob = new Blob([textData], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'semester_7_sgpa_records.txt';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Failed to fetch records. Server may not be running.');
+      }
+    }
+
+    // Update total credits display when optional subjects are selected/deselected
+    document.addEventListener('DOMContentLoaded', function() {
+      const optionalSubjects = ['MIN3', 'MIN4'];
+      
+      optionalSubjects.forEach(subject => {
+        document.getElementById(subject).addEventListener('change', function() {
+          updateTotalCredits();
+        });
+      });
+      
+      updateTotalCredits(); // Initial calculation
+    });
+
+    function updateTotalCredits() {
+      const credits = { 
+        PE4: 3, EPP: 2, OE3: 3, MIN3: 3, MIN4: 3, 
+        PROJ1: 5, INTERN: 2, MILAB: 2 
+      };
+      
+      let totalCredits = 15; // Base credits (without optional subjects)
+      
+      // Add optional subjects if selected
+      if (document.getElementById('MIN3').value !== '') {
+        totalCredits += 3;
+      }
+      if (document.getElementById('MIN4').value !== '') {
+        totalCredits += 3;
+      }
+      
+      document.getElementById('total-credits').textContent = `Total Credits: ${totalCredits}`;
+    }
+  </script>
+</body>
+</html>
