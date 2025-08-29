@@ -458,26 +458,14 @@
         timestamp: new Date().toLocaleString()
       };
 
-      // Send record to the backend (if available)
+      // Save record to localStorage for GitHub Pages
       try {
-        const response = await fetch('http://localhost:3000/save-record', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(record),
-        });
-
-        if (!response.ok) {
-          throw new Error('Failed to save record on the server.');
-        }
-
-        const data = await response.json();
-        console.log(data.message);
+        const existingRecords = JSON.parse(localStorage.getItem('sgpaRecords') || '[]');
+        existingRecords.push(record);
+        localStorage.setItem('sgpaRecords', JSON.stringify(existingRecords));
+        console.log('Record saved to local storage');
       } catch (error) {
-        console.error('Error:', error);
-        // Don't show alert for server connection issues, just log
-        console.log('Record saved locally only - server not available');
+        console.error('Error saving to localStorage:', error);
       }
     }
 
@@ -495,16 +483,12 @@
       return names[code] || code;
     }
 
-    async function exportRecords() {
+    function exportRecords() {
       try {
-        const response = await fetch('http://localhost:3000/get-records');
-        if (!response.ok) {
-          throw new Error('Failed to fetch records from the server.');
-        }
-
-        const records = await response.json();
+        const records = JSON.parse(localStorage.getItem('sgpaRecords') || '[]');
+        
         if (records.length === 0) {
-          alert('No records found to export.');
+          alert('No records found to export. Calculate some SGPAs first!');
           return;
         }
 
@@ -536,9 +520,11 @@
         a.click();
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
+        
+        alert(`Successfully exported ${records.length} records!`);
       } catch (error) {
         console.error('Error:', error);
-        alert('Failed to fetch records. Server may not be running.');
+        alert('Failed to export records. Please try again.');
       }
     }
 
