@@ -8,18 +8,21 @@
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
     
     :root {
-      --primary-color: #667eea;
-      --secondary-color: #764ba2;
-      --accent-color: #f093fb;
-      --success-color: #4facfe;
-      --text-primary: #2d3748;
-      --text-secondary: #4a5568;
+      --kiit-primary: #1a5f3f;
+      --kiit-secondary: #2d8f5f;
+      --kiit-accent: #4ade80;
+      --kiit-light: #86efac;
+      --kiit-dark: #064e3b;
+      --kiit-gold: #fbbf24;
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-light: #ffffff;
       --bg-white: #ffffff;
-      --bg-light: #f7fafc;
-      --border-color: #e2e8f0;
-      --shadow-light: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-      --shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-      --shadow-large: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      --bg-light: #f0fdf4;
+      --border-color: #d1fae5;
+      --shadow-light: 0 4px 6px -1px rgba(26, 95, 63, 0.1);
+      --shadow-medium: 0 10px 15px -3px rgba(26, 95, 63, 0.15);
+      --shadow-large: 0 25px 50px -12px rgba(26, 95, 63, 0.25);
     }
 
     * {
@@ -32,14 +35,38 @@
       padding: 20px;
       min-height: 100vh;
       background: 
-        radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
-        radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.3) 0%, transparent 50%),
-        linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+        /* KIIT Campus overlay pattern */
+        radial-gradient(circle at 25% 75%, rgba(26, 95, 63, 0.4) 0%, transparent 50%),
+        radial-gradient(circle at 75% 25%, rgba(45, 143, 95, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(74, 222, 128, 0.2) 0%, transparent 60%),
+        /* KIIT signature green gradient */
+        linear-gradient(135deg, 
+          var(--kiit-dark) 0%, 
+          var(--kiit-primary) 25%, 
+          var(--kiit-secondary) 50%, 
+          var(--kiit-accent) 75%, 
+          var(--kiit-light) 100%
+        ),
+        /* Campus background image placeholder */
+        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600"><rect fill="%23064e3b" width="1000" height="600"/><circle cx="200" cy="150" r="80" fill="%231a5f3f" opacity="0.3"/><circle cx="800" cy="450" r="120" fill="%232d8f5f" opacity="0.2"/><rect x="100" y="400" width="200" height="100" fill="%231a5f3f" opacity="0.4"/><rect x="700" y="100" width="150" height="80" fill="%232d8f5f" opacity="0.3"/></svg>');
       background-attachment: fixed;
-      animation: fadeIn 1.2s ease-out, backgroundShift 20s ease-in-out infinite;
+      background-size: cover, cover, cover, cover, cover;
+      background-position: center;
+      animation: fadeIn 1.2s ease-out, kiitBackgroundShift 25s ease-in-out infinite;
       line-height: 1.6;
       overflow-x: hidden;
+    }
+
+    @keyframes kiitBackgroundShift {
+      0%, 100% { 
+        background-position: 0% 50%, 100% 50%, 50% 0%, 0% 0%, center; 
+      }
+      33% { 
+        background-position: 100% 0%, 0% 100%, 100% 100%, 25% 25%, center; 
+      }
+      66% { 
+        background-position: 50% 100%, 50% 0%, 0% 50%, 75% 75%, center; 
+      }
     }
 
     @keyframes backgroundShift {
@@ -63,23 +90,40 @@
     }
 
     .container {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(30px);
-      -webkit-backdrop-filter: blur(30px);
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       padding: 3rem;
       border-radius: 32px;
       box-shadow: 
-        0 25px 50px -12px rgba(0, 0, 0, 0.25),
-        0 0 0 1px rgba(255, 255, 255, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        0 25px 50px -12px rgba(26, 95, 63, 0.3),
+        0 0 0 2px rgba(26, 95, 63, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
       width: 100%;
       max-width: 950px;
       margin: 0 auto;
       text-align: center;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      animation: slideIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), float 6s ease-in-out infinite;
+      border: 2px solid rgba(26, 95, 63, 0.2);
+      animation: slideIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), kiitFloat 8s ease-in-out infinite;
       position: relative;
       overflow: hidden;
+    }
+
+    @keyframes kiitFloat {
+      0%, 100% { 
+        transform: translateY(0px) rotate(0deg);
+        box-shadow: 
+          0 25px 50px -12px rgba(26, 95, 63, 0.3),
+          0 0 0 2px rgba(26, 95, 63, 0.1),
+          inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      }
+      50% { 
+        transform: translateY(-8px) rotate(0.3deg);
+        box-shadow: 
+          0 35px 60px -12px rgba(26, 95, 63, 0.4),
+          0 0 0 2px rgba(45, 143, 95, 0.2),
+          inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      }
     }
 
     @keyframes float {
@@ -97,16 +141,23 @@
       top: 0;
       left: 0;
       right: 0;
-      height: 6px;
+      height: 8px;
       background: linear-gradient(90deg, 
-        var(--primary-color), 
-        var(--accent-color), 
-        var(--success-color),
-        var(--primary-color)
+        var(--kiit-dark), 
+        var(--kiit-primary), 
+        var(--kiit-secondary),
+        var(--kiit-accent),
+        var(--kiit-gold),
+        var(--kiit-primary)
       );
-      background-size: 200% 100%;
-      animation: gradientShift 3s ease-in-out infinite;
+      background-size: 300% 100%;
+      animation: kiitGradientShift 4s ease-in-out infinite;
       border-radius: 32px 32px 0 0;
+    }
+
+    @keyframes kiitGradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
     }
 
     @keyframes gradientShift {
@@ -144,29 +195,76 @@
     .header-section {
       margin-bottom: 3rem;
       position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .kiit-logo-container {
+      width: 120px;
+      height: 120px;
+      margin-bottom: 1.5rem;
+      position: relative;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--kiit-primary), var(--kiit-secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 
+        0 15px 35px rgba(26, 95, 63, 0.3),
+        inset 0 2px 0 rgba(255, 255, 255, 0.3);
+      animation: logoFloat 6s ease-in-out infinite;
+      border: 4px solid rgba(255, 255, 255, 0.9);
+    }
+
+    @keyframes logoFloat {
+      0%, 100% { 
+        transform: translateY(0px) rotate(0deg) scale(1);
+        box-shadow: 
+          0 15px 35px rgba(26, 95, 63, 0.3),
+          inset 0 2px 0 rgba(255, 255, 255, 0.3);
+      }
+      50% { 
+        transform: translateY(-5px) rotate(2deg) scale(1.05);
+        box-shadow: 
+          0 20px 40px rgba(26, 95, 63, 0.4),
+          inset 0 2px 0 rgba(255, 255, 255, 0.4);
+      }
+    }
+
+    .kiit-logo-text {
+      color: white;
+      font-size: 2rem;
+      font-weight: 900;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      letter-spacing: 2px;
     }
 
     .university-heading {
       background: linear-gradient(135deg, 
-        #fff 0%, 
-        #f0f9ff 25%, 
-        #e0f2fe 50%, 
-        #fff 75%, 
-        #f0f9ff 100%
+        var(--kiit-primary) 0%, 
+        var(--kiit-secondary) 25%, 
+        var(--kiit-accent) 50%, 
+        var(--kiit-secondary) 75%, 
+        var(--kiit-primary) 100%
       );
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
       background-size: 200% 100%;
-      animation: textShimmer 3s ease-in-out infinite;
+      animation: kiitTextShimmer 4s ease-in-out infinite;
       font-size: 2.8rem;
       font-weight: 900;
       margin-bottom: 0.5rem;
       letter-spacing: -1px;
       line-height: 1.1;
-      text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
       position: relative;
       z-index: 10;
+    }
+
+    @keyframes kiitTextShimmer {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
     }
 
     @keyframes textShimmer {
@@ -175,24 +273,24 @@
     }
 
     .subheading {
-      color: rgba(255, 255, 255, 0.9);
+      color: var(--kiit-primary);
       font-size: 1.3rem;
       margin-bottom: 1rem;
-      font-weight: 500;
-      opacity: 0.95;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      font-weight: 600;
+      opacity: 0.9;
+      text-shadow: 0 1px 3px rgba(26, 95, 63, 0.2);
       position: relative;
       z-index: 10;
     }
 
     .calculator-title {
-      color: rgba(255, 255, 255, 0.95);
+      color: var(--kiit-dark);
       margin-bottom: 2.5rem;
       font-size: 1.8rem;
       font-weight: 700;
       position: relative;
       z-index: 10;
-      text-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+      text-shadow: 0 1px 3px rgba(26, 95, 63, 0.1);
     }
 
     .calculator-title::after {
@@ -204,17 +302,26 @@
       width: 80px;
       height: 4px;
       background: linear-gradient(90deg, 
-        rgba(255, 255, 255, 0.8), 
-        rgba(255, 255, 255, 0.4), 
-        rgba(255, 255, 255, 0.8)
+        var(--kiit-primary), 
+        var(--kiit-accent), 
+        var(--kiit-gold),
+        var(--kiit-primary)
       );
       border-radius: 2px;
-      animation: pulse 2s ease-in-out infinite;
+      animation: kiitPulse 3s ease-in-out infinite;
     }
 
-    @keyframes pulse {
-      0%, 100% { opacity: 0.8; transform: translateX(-50%) scaleX(1); }
-      50% { opacity: 1; transform: translateX(-50%) scaleX(1.1); }
+    @keyframes kiitPulse {
+      0%, 100% { 
+        opacity: 0.8; 
+        transform: translateX(-50%) scaleX(1);
+        background-position: 0% 50%;
+      }
+      50% { 
+        opacity: 1; 
+        transform: translateX(-50%) scaleX(1.2);
+        background-position: 100% 50%;
+      }
     }
 
     .form-group {
@@ -235,31 +342,30 @@
     .form-group input {
       width: 100%;
       padding: 18px 24px;
-      border: 2px solid rgba(255, 255, 255, 0.2);
+      border: 2px solid var(--border-color);
       border-radius: 16px;
       font-size: 1rem;
       font-weight: 500;
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      color: rgba(255, 255, 255, 0.9);
+      background: var(--bg-white);
+      color: var(--text-primary);
       position: relative;
       z-index: 10;
     }
 
     .form-group input:focus {
       outline: none;
-      border-color: rgba(255, 255, 255, 0.6);
+      border-color: var(--kiit-accent);
       box-shadow: 
-        0 0 0 3px rgba(255, 255, 255, 0.1),
-        0 8px 25px rgba(0, 0, 0, 0.15);
+        0 0 0 3px rgba(74, 222, 128, 0.2),
+        0 8px 25px rgba(26, 95, 63, 0.15);
       transform: translateY(-3px);
-      background: rgba(255, 255, 255, 0.15);
+      background: var(--bg-light);
     }
 
     .form-group input::placeholder {
-      color: rgba(255, 255, 255, 0.7);
-      opacity: 0.8;
+      color: var(--text-secondary);
+      opacity: 0.7;
     }
 
     .subjects-section {
@@ -294,10 +400,9 @@
       gap: 1rem;
       margin-bottom: 1.2rem;
       padding: 1.5rem;
-      background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(15px);
+      background: var(--bg-light);
       border-radius: 20px;
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      border: 2px solid var(--border-color);
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
       overflow: hidden;
@@ -324,36 +429,32 @@
 
     .subject-input:hover {
       transform: translateY(-4px) scale(1.02);
-      box-shadow: 
-        0 15px 35px rgba(0, 0, 0, 0.2),
-        0 0 0 1px rgba(255, 255, 255, 0.3);
-      border-color: rgba(255, 255, 255, 0.3);
-      background: rgba(255, 255, 255, 0.12);
+      box-shadow: var(--shadow-medium);
+      border-color: var(--kiit-accent);
+      background: var(--bg-white);
     }
 
     .subject-input label {
       font-size: 1.05rem;
-      color: rgba(255, 255, 255, 0.95);
+      color: var(--text-primary);
       flex: 1;
       text-align: left;
       font-weight: 600;
       line-height: 1.4;
-      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
       position: relative;
       z-index: 10;
     }
 
     .credit-info {
       font-size: 0.875rem;
-      color: rgba(255, 255, 255, 0.8);
+      color: var(--kiit-primary);
       min-width: 100px;
       text-align: center;
       font-weight: 600;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
+      background: var(--bg-white);
       padding: 0.6rem 0.9rem;
       border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      border: 2px solid var(--border-color);
       position: relative;
       z-index: 10;
     }
@@ -361,12 +462,11 @@
     .subject-input select {
       padding: 14px 18px;
       border-radius: 16px;
-      border: 2px solid rgba(255, 255, 255, 0.2);
+      border: 2px solid var(--border-color);
       font-size: 1rem;
       font-weight: 700;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      color: rgba(255, 255, 255, 0.9);
+      background: var(--bg-white);
+      color: var(--text-primary);
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       width: 150px;
       cursor: pointer;
@@ -376,21 +476,21 @@
 
     .subject-input select:focus {
       outline: none;
-      border-color: rgba(255, 255, 255, 0.5);
+      border-color: var(--kiit-accent);
       box-shadow: 
-        0 0 0 3px rgba(255, 255, 255, 0.1),
-        0 8px 25px rgba(0, 0, 0, 0.15);
+        0 0 0 3px rgba(74, 222, 128, 0.2),
+        0 8px 25px rgba(26, 95, 63, 0.15);
       transform: translateY(-2px);
-      background: rgba(255, 255, 255, 0.15);
+      background: var(--bg-light);
     }
 
     .subject-input select:hover {
-      border-color: rgba(255, 255, 255, 0.4);
-      background: rgba(255, 255, 255, 0.12);
+      border-color: var(--kiit-secondary);
+      background: var(--bg-light);
     }
 
     .subject-input select option {
-      background: rgba(102, 126, 234, 0.95);
+      background: var(--kiit-primary);
       color: white;
       padding: 10px;
     }
@@ -428,21 +528,18 @@
       cursor: pointer;
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       background: linear-gradient(135deg, 
-        rgba(255, 255, 255, 0.2) 0%, 
-        rgba(255, 255, 255, 0.1) 50%, 
-        rgba(255, 255, 255, 0.2) 100%
+        var(--kiit-primary) 0%, 
+        var(--kiit-secondary) 50%, 
+        var(--kiit-accent) 100%
       );
-      backdrop-filter: blur(20px);
-      border: 2px solid rgba(255, 255, 255, 0.3);
+      border: 2px solid var(--kiit-primary);
       color: white;
       letter-spacing: 0.5px;
       position: relative;
       overflow: hidden;
       min-width: 200px;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-      box-shadow: 
-        0 8px 25px rgba(0, 0, 0, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+      text-shadow: 0 2px 10px rgba(26, 95, 63, 0.4);
+      box-shadow: var(--shadow-medium);
     }
 
     button::before {
@@ -466,15 +563,12 @@
 
     button:hover {
       transform: translateY(-5px) scale(1.05);
-      box-shadow: 
-        0 15px 40px rgba(0, 0, 0, 0.3),
-        0 0 0 1px rgba(255, 255, 255, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.4);
-      border-color: rgba(255, 255, 255, 0.5);
+      box-shadow: var(--shadow-large);
+      border-color: var(--kiit-accent);
       background: linear-gradient(135deg, 
-        rgba(255, 255, 255, 0.3) 0%, 
-        rgba(255, 255, 255, 0.2) 50%, 
-        rgba(255, 255, 255, 0.3) 100%
+        var(--kiit-secondary) 0%, 
+        var(--kiit-accent) 50%, 
+        var(--kiit-light) 100%
       );
     }
 
@@ -631,6 +725,9 @@
 <body>
   <div class="container">
     <div class="header-section">
+      <div class="kiit-logo-container">
+        <div class="kiit-logo-text">KIIT</div>
+      </div>
       <div class="university-heading">KIIT UNIVERSITY</div>
       <div class="subheading">SEMESTER VII (B. Tech. Hons.) SGPA CALCULATOR</div>
       <h1 class="calculator-title">Calculate Your SGPA</h1>
