@@ -13,16 +13,17 @@
       --kiit-accent: #4ade80;
       --kiit-light: #86efac;
       --kiit-dark: #064e3b;
-      --kiit-gold: #fbbf24;
-      --text-primary: #0f172a;
-      --text-secondary: #475569;
+      --kiit-gold: #f59e0b;
+      --campus-overlay: rgba(26, 95, 63, 0.1);
+      --text-primary: #1f2937;
+      --text-secondary: #6b7280;
       --text-light: #ffffff;
       --bg-white: #ffffff;
-      --bg-light: #f0fdf4;
-      --border-color: #d1fae5;
-      --shadow-light: 0 4px 6px -1px rgba(26, 95, 63, 0.1);
-      --shadow-medium: 0 10px 15px -3px rgba(26, 95, 63, 0.15);
-      --shadow-large: 0 25px 50px -12px rgba(26, 95, 63, 0.25);
+      --bg-light: #f9fafb;
+      --border-color: #e5e7eb;
+      --shadow-light: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      --shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.15);
+      --shadow-large: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     }
 
     * {
@@ -35,26 +36,58 @@
       padding: 20px;
       min-height: 100vh;
       background: 
-        /* KIIT Campus overlay pattern */
-        radial-gradient(circle at 25% 75%, rgba(26, 95, 63, 0.4) 0%, transparent 50%),
-        radial-gradient(circle at 75% 25%, rgba(45, 143, 95, 0.3) 0%, transparent 50%),
-        radial-gradient(circle at 50% 50%, rgba(74, 222, 128, 0.2) 0%, transparent 60%),
-        /* KIIT signature green gradient */
+        /* Subtle overlay for better readability */
         linear-gradient(135deg, 
-          var(--kiit-dark) 0%, 
-          var(--kiit-primary) 25%, 
-          var(--kiit-secondary) 50%, 
-          var(--kiit-accent) 75%, 
-          var(--kiit-light) 100%
+          rgba(26, 95, 63, 0.85) 0%, 
+          rgba(45, 143, 95, 0.75) 25%,
+          rgba(74, 222, 128, 0.65) 50%,
+          rgba(26, 95, 63, 0.75) 75%,
+          rgba(6, 78, 59, 0.85) 100%
         ),
-        /* Campus background image placeholder */
-        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600"><rect fill="%23064e3b" width="1000" height="600"/><circle cx="200" cy="150" r="80" fill="%231a5f3f" opacity="0.3"/><circle cx="800" cy="450" r="120" fill="%232d8f5f" opacity="0.2"/><rect x="100" y="400" width="200" height="100" fill="%231a5f3f" opacity="0.4"/><rect x="700" y="100" width="150" height="80" fill="%232d8f5f" opacity="0.3"/></svg>');
+        /* KIIT Campus Background Image */
+        url('https://share.google/images/pBqIaRcXglO5n9Oiu') no-repeat center center;
       background-attachment: fixed;
-      background-size: cover, cover, cover, cover, cover;
+      background-size: cover;
       background-position: center;
-      animation: fadeIn 1.2s ease-out, kiitBackgroundShift 25s ease-in-out infinite;
+      animation: fadeIn 1.2s ease-out, subtleShift 30s ease-in-out infinite;
       line-height: 1.6;
       overflow-x: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 30% 70%, rgba(26, 95, 63, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 70% 30%, rgba(74, 222, 128, 0.2) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 1;
+      animation: campusOverlay 20s ease-in-out infinite;
+    }
+
+    @keyframes campusOverlay {
+      0%, 100% { 
+        opacity: 0.6;
+        transform: scale(1);
+      }
+      50% { 
+        opacity: 0.8;
+        transform: scale(1.05);
+      }
+    }
+
+    @keyframes subtleShift {
+      0%, 100% { 
+        background-position: center center;
+      }
+      50% { 
+        background-position: center 45%;
+      }
     }
 
     @keyframes kiitBackgroundShift {
@@ -90,23 +123,41 @@
     }
 
     .container {
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
       padding: 3rem;
       border-radius: 32px;
       box-shadow: 
-        0 25px 50px -12px rgba(26, 95, 63, 0.3),
-        0 0 0 2px rgba(26, 95, 63, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+        0 30px 60px -12px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.8),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
       width: 100%;
       max-width: 950px;
       margin: 0 auto;
       text-align: center;
-      border: 2px solid rgba(26, 95, 63, 0.2);
-      animation: slideIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), kiitFloat 8s ease-in-out infinite;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      animation: slideIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), campusFloat 10s ease-in-out infinite;
       position: relative;
       overflow: hidden;
+      z-index: 10;
+    }
+
+    @keyframes campusFloat {
+      0%, 100% { 
+        transform: translateY(0px) rotate(0deg);
+        box-shadow: 
+          0 30px 60px -12px rgba(0, 0, 0, 0.4),
+          0 0 0 1px rgba(255, 255, 255, 0.8),
+          inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      }
+      50% { 
+        transform: translateY(-10px) rotate(0.2deg);
+        box-shadow: 
+          0 40px 70px -12px rgba(0, 0, 0, 0.5),
+          0 0 0 1px rgba(255, 255, 255, 0.9),
+          inset 0 1px 0 rgba(255, 255, 255, 1);
+      }
     }
 
     @keyframes kiitFloat {
@@ -211,10 +262,26 @@
       align-items: center;
       justify-content: center;
       box-shadow: 
-        0 15px 35px rgba(26, 95, 63, 0.3),
-        inset 0 2px 0 rgba(255, 255, 255, 0.3);
-      animation: logoFloat 6s ease-in-out infinite;
-      border: 4px solid rgba(255, 255, 255, 0.9);
+        0 20px 40px rgba(0, 0, 0, 0.3),
+        inset 0 2px 0 rgba(255, 255, 255, 0.4);
+      animation: campusLogoFloat 8s ease-in-out infinite;
+      border: 4px solid rgba(255, 255, 255, 0.95);
+      z-index: 20;
+    }
+
+    @keyframes campusLogoFloat {
+      0%, 100% { 
+        transform: translateY(0px) rotate(0deg) scale(1);
+        box-shadow: 
+          0 20px 40px rgba(0, 0, 0, 0.3),
+          inset 0 2px 0 rgba(255, 255, 255, 0.4);
+      }
+      50% { 
+        transform: translateY(-8px) rotate(3deg) scale(1.08);
+        box-shadow: 
+          0 25px 50px rgba(0, 0, 0, 0.4),
+          inset 0 2px 0 rgba(255, 255, 255, 0.5);
+      }
     }
 
     @keyframes logoFloat {
@@ -236,8 +303,9 @@
       color: white;
       font-size: 2rem;
       font-weight: 900;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      text-shadow: 0 3px 15px rgba(0, 0, 0, 0.5);
       letter-spacing: 2px;
+      z-index: 25;
     }
 
     .university-heading {
@@ -615,7 +683,7 @@
     }
 
     .export-btn {
-      background: linear-gradient(135deg, var(--success-color), #00d4aa);
+      background: linear-gradient(135deg, var(--kiit-primary), var(--kiit-secondary));
       position: absolute;
       top: 24px;
       right: 24px;
@@ -624,12 +692,17 @@
       font-weight: 600;
       border-radius: 12px;
       min-width: auto;
-      box-shadow: var(--shadow-light);
+      box-shadow: var(--shadow-medium);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(10px);
+      z-index: 15;
     }
 
     .export-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(79, 172, 254, 0.4);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-large);
+      background: linear-gradient(135deg, var(--kiit-secondary), var(--kiit-accent));
+      border-color: rgba(255, 255, 255, 0.5);
     }
 
     .total-credits {
